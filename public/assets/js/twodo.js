@@ -69,8 +69,12 @@
       }
     };
     this.all_completed = function() {
-      if (this.get_total_todos() === this.get_completed_todos()) {
-        return true;
+      if (this.todos.length > 0) {
+        if (this.get_total_todos() === this.get_completed_todos()) {
+          return true;
+        } else {
+          return false;
+        }
       } else {
         return false;
       }

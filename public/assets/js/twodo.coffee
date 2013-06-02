@@ -47,7 +47,9 @@ List = (id,title) ->
 		return
 
 	@.all_completed = ->
-		if @.get_total_todos() == @.get_completed_todos() then return true else return false
+		if @.todos.length > 0
+			if @.get_total_todos() == @.get_completed_todos() then return true else return false
+		else return false
 		return
 
 	return
