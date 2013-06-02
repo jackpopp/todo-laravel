@@ -1,0 +1,164 @@
+$background_one: #ffffff
+$background_two: rgb(223, 236, 255)
+$marg_pad: 20px
+$border_colour: rgb(201, 201, 201)
+
+*
+	box-sizing: border-box
+
+
+body
+	background: $background_one
+	font-family: 'Droid Sans', sans-serif
+h1,h2, h3, h4, h5, h6
+	font-family: 'PT Sans', sans-serif
+
+ul
+	margin-left: 0!important
+	li
+		list-style: none
+// reset some foundation styles
+form
+	margin: 0
+
+
+.full-width
+	width: 100%
+.masthead
+	height: 280px
+	padding: $marg_pad 0px
+	background: rgb(223, 236, 255)
+	transition: all 0.2s
+	overflow: hidden
+	top: 0px
+
+.masthead-closed
+	display: none
+
+.todo-area
+	padding: $marg_pad 0px
+	.close-masthead
+		color: #222
+		padding: 5px 10px
+		background: #dfecff
+		position: absolute
+		top: 0px
+		right: 20px
+		cursor: pointer
+		transition: all 0.5s
+		&:hover
+			background: white
+
+	.lists
+		.main-list
+			margin: 5px 0px
+			padding: 5px
+			background: rgb(240, 240, 240)
+			border: 1px solid #c9c9c9
+			cursor: pointer
+		span
+			font-weight: 300
+			font-size: 18px
+		span.complete
+			color: green
+		span.incomplete
+			color: red
+	.add-list
+		padding: 15px 0px 0px 0px
+		margin: 10px 0px 20px 0px
+		border-top: 1px solid $border_colour
+		border-bottom: 1px solid $border_colour
+		input
+			&:first-child
+				float: left
+			&:last-child
+				float: right
+
+	.add-todo
+		height: 45px
+		overflow: hidden
+		transition: all 0.5s
+		h6
+			cursor: pointer
+	.show-add-section
+		height: 195px
+	.show-add-form-button
+		border-radius: 1px
+		font-size: 12px
+		font-weight: 400
+		color: #fff
+		text-align: center
+		display: block
+		background: rgb(223, 130, 130)
+		width: 110px
+		padding: 5px
+		margin: 10px 0px
+		cursor: pointer
+		border: 1px solid rgb(177, 97, 97)
+	.list-row
+		display: none
+	.todo-list
+		li
+			padding: 3px 15px 3px 0px
+			margin: 5px 0px 5px 0px
+			cursor: pointer
+			.summary
+				font-size: 12px
+		.todo-done
+			padding: 5px
+		.todo-description
+			display: none
+		.todo-show-description
+			display: block
+
+	.show-list
+		display: block
+
+.main-area
+	margin: 50px auto 50px auto
+	background: rgb(245, 240, 212)
+	border-radius: 3px
+.new-list
+	margin: 20px 0px 0px 0px
+.todo-list-holder
+	background: rgb(235, 235, 235)
+	padding: 20px 10px
+	.todo-list
+		padding: 5px
+		height: 800px
+		.todo-block
+			word-wrap: break-word
+			height: 60px
+			cursor: pointer
+			margin: 5px 0px
+			padding: 5px
+			border: 1px solid #d2d2d2
+			border-radius: 3px
+			transition: all 0.5s
+.todo-item
+	cursor: pointer
+	margin: 5px 0px
+	padding: 5px
+	border: 1px solid rgb(253, 253, 253)
+	border-radius: 3px
+	transition: all 0.5s
+
+.selected-todo
+	height: 860px
+	padding: 20px 10px
+	background: darken(rgb(235, 235, 235),10%)
+.new-todo
+	margin: 0px 0px 20px 0px
+	.new-todo-input
+		width: 48%
+		float: left
+	.todo-title
+		margin: 0px 25px 0px 0px
+
+.selected
+	background: rgb(253, 253, 253)
+	transition: all 0.5s
+.done
+	background: rgb(228, 255, 207)
+	border: 1px solid rgb(166, 204, 117)
+	transition: all 0.5s
