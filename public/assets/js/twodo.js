@@ -108,8 +108,8 @@
   App = angular.module('todo-app', ['ngDragDrop']);
 
   App.controller('ToDoCtrl', function($scope, $timeout, $http) {
-    $scope.email = "";
-    $scope.password = "";
+    $scope.email = "jack.popp@gmail.com";
+    $scope.password = "1234";
     $scope.signup_name = "Jack";
     $scope.signup_password = "1234";
     $scope.signup_email = "jack.popp@gmail.com";
@@ -149,7 +149,9 @@
       $http.post('/todo-laravel/public/auth', data).success($scope.login_success);
     };
     $scope.login_success = function(data) {
-      console.log(data);
+      if (data.success) {
+        location.reload();
+      }
     };
     $scope.add_new_list = function() {
       if ($scope.new_list_title !== null && $scope.new_list_title !== "" && $scope.new_list_title.length > 0) {

@@ -21,13 +21,14 @@ class UserController extends BaseController {
 		$user->name = Input::get('name');
 		$user->email = Input::get('email');
 		$user->password = Hash::make(Input::get('password'));
+
 		if($user->save())
 		{
-			return Response::json(array('success' => true, 'user' => $user->toArray()),200);
+			return Response::json(array('success' => true, 'user' => $user->toArray()), 200);
 		}
 		else
 		{
-			return Response::json(array('success' => false),500);
+			return Response::json(array('success' => false), 500);
 		}
 	}
 
@@ -60,13 +61,18 @@ class UserController extends BaseController {
 
 		if (Auth::attempt($userdata))
 		{
-			return Response::json(array('success' => true),200);
-		}
-			
+			return Response::json(array('success' => true), 200);
+		}		
 		else
 		{
 			return Response::json(array('success' => false, 'message' => 'Email or password incorrect'), 500);
 		}	
+	}
+
+	public function logout()
+	{
+		Session::flush();
+		return Redirect::to('/');
 	}
 
 }

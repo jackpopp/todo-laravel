@@ -80,8 +80,8 @@ App = angular.module('todo-app', ['ngDragDrop'])
 App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 
 	# Sign In Vars
-	$scope.email = ""
-	$scope.password = ""
+	$scope.email = "jack.popp@gmail.com"
+	$scope.password = "1234"
 
 	# Sign Up Vars
 	$scope.signup_name = "Jack"
@@ -131,7 +131,8 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		return
 
 	$scope.login_success = (data) ->
-		console.log data
+		if data.success
+			location.reload()
 		return
 
 	$scope.add_new_list = ->

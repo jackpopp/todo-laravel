@@ -36,6 +36,7 @@
     <div class="row main-area">
         <!-- Add New Todo List -->
          <div class="large-12 columns">
+            <a href="logout">Logout</a>
             <div class="new-list clearfix">
                 <form ng-submit="add_new_list()">
                     <input class="large-12" type="text" ng-model="new_list_title" placeholder="Add new list">
