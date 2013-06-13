@@ -12,7 +12,9 @@
 */
 
 Route::resource('user', 'UserController');
+Route::resource('list', 'ListController');
+
+
 Route::post('auth', array('uses' => 'UserController@auth'));
+Route::get('logout', array('uses' => 'UserController@logout'));
 Route::get('/', array('uses' => 'HomeController@index'));
-//Route::put('user', array('uses' => 'HomeController@user'));
-//Route::controller('users', 'UserController');
