@@ -1,5 +1,4 @@
 @extends('layouts.master')
-
 @section('content')
 
 @if (!Auth::check())
@@ -12,18 +11,25 @@
                             <h3>
                                 Sign In!
                             </h3>
-                            <input type="text" ng-model="email" placeholder="Email" />
-                            <input type="password" ng-model="password" placeholder="Password" />
-                            <input type="submit" value="submit" class="small button" ng-click="login()"/>
+                            <form ng-submit="login()">
+                                <input type="text" ng-model="email" placeholder="Email" required />
+                                <input type="password" ng-model="password" placeholder="Password" required />
+                                <div class="alert-box alert" ng-show="signin_error">
+                                    {{signin_error}}
+                                </div>
+                                <input type="submit" value="submit" class="small button" ng-hide="loading" />
+                            </form>
                         </div>
                         <div class="large-3 columns left">
                             <h3>
                                 Sign Up!
                             </h3>
-                            <input type="text" ng-model="signup_name" placeholder="Name" />
-                            <input type="email" ng-model="signup_email" placeholder="Email" />
-                            <input type="password" ng-model="signup_password" placeholder="Password" />
-                            <input type="submit" value="submit" class="small button" ng-click="signup()" />
+                            <form ng-submit="signup()">
+                                <input type="text" ng-model="signup_name" placeholder="Name" required />
+                                <input type="email" ng-model="signup_email" placeholder="Email" required />
+                                <input type="password" ng-model="signup_password" placeholder="Password" required />
+                                <input type="submit" value="submit" class="small button" />
+                            </form>
                         </div>
                     </div>
                 </fieldset>
@@ -36,7 +42,6 @@
     <div class="row main-area">
         <!-- Add New Todo List -->
          <div class="large-12 columns">
-            <a href="logout">Logout</a>
             <div class="new-list clearfix">
                 <form ng-submit="add_new_list()">
                     <input class="large-12" type="text" ng-model="new_list_title" placeholder="Add new list">

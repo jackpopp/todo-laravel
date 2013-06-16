@@ -79,9 +79,12 @@ App = angular.module('todo-app', ['ngDragDrop'])
 
 App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 
+	$scope.loading = false
+
 	# Sign In Vars
 	$scope.email = "jack.popp@gmail.com"
 	$scope.password = "1234"
+	$scope.signin_error = ""
 
 	# Sign Up Vars
 	$scope.signup_name = "Jack"
@@ -96,6 +99,7 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 	$scope.show_add = null
 	
 	$scope.lists = []
+
 
 	# Demo
 	$scope.lists.push(new List(1,'To Do Example List'))
@@ -123,16 +127,25 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		return
 
 	$scope.login = ->
+		$scope.loading = true
 		data = (
 			email: $scope.email
 			password: $scope.password
 		)
-		$http.post('/todo-laravel/public/auth', data).success($scope.login_success)
+		$http.post('/todo-laravel/public/auth', data).success($scope.login_success).error($scope.login_error)
 		return
 
 	$scope.login_success = (data) ->
+		$scope.loading = false
+		$scope.signin_error = ""
 		if data.success
 			location.reload()
+		return
+
+	$scope.login_error = (data) ->
+		$scope.loading = false
+		if !data.success
+			$scope.signin_error = data.message
 		return
 
 	$scope.add_new_list = ->
