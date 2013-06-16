@@ -11,8 +11,16 @@
 |
 */
 
-Route::resource('user', 'UserController');
-Route::resource('list', 'TodoListController');
+Route::filter('auth.basic', function()
+{
+    return Auth::basic();
+});
+
+Route::group( array('before' => 'auth.basic'), function()
+{
+	Route::resource('user', 'UserController');
+	Route::resource('list', 'TodoListController');
+});
 
 
 Route::post('auth', array('uses' => 'UserController@auth'));
