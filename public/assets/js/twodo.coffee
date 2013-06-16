@@ -136,10 +136,11 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		return
 
 	$scope.login_success = (data) ->
-		$scope.loading = false
 		$scope.signin_error = ""
 		if data.success
 			location.reload()
+		else
+			$scope.loading = false
 		return
 
 	$scope.login_error = (data) ->

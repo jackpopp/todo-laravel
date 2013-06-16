@@ -18,6 +18,7 @@
                                     {{signin_error}}
                                 </div>
                                 <input type="submit" value="submit" class="small button" ng-hide="loading" />
+                                <img src="assets/img/loader.gif" ng-show="loading">
                             </form>
                         </div>
                         <div class="large-3 columns left">

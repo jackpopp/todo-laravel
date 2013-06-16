@@ -152,10 +152,11 @@
       $http.post('/todo-laravel/public/auth', data).success($scope.login_success).error($scope.login_error);
     };
     $scope.login_success = function(data) {
-      $scope.loading = false;
       $scope.signin_error = "";
       if (data.success) {
         location.reload();
+      } else {
+        $scope.loading = false;
       }
     };
     $scope.login_error = function(data) {
