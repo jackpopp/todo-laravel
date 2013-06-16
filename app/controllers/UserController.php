@@ -15,6 +15,11 @@ class UserController extends BaseController {
 	|
 	*/
 
+	public function index()
+	{
+		echo 'hello';
+	}
+
 	public function store()
 	{
 		$user = new User();
