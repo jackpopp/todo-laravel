@@ -12,7 +12,7 @@
 */
 
 Route::resource('user', 'UserController');
-Route::resource('list', 'ListController');
+Route::resource('list', 'TodoListController');
 
 
 Route::post('auth', array('uses' => 'UserController@auth'));
