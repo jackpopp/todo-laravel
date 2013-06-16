@@ -1,13 +1,13 @@
 <?php
 
-class List extends Eloquent  {
+class TodoList extends Eloquent {
 
 	/**
 	 * The database table used by the model.
 	 *
 	 * @var string
 	 */
-	protected $table = 'lists';
+	protected $table = 'todo_lists';
 
 	/**
 	 * The attributes excluded from the model's JSON form.
@@ -16,9 +16,11 @@ class List extends Eloquent  {
 	 */
 	protected $hidden = array();
 
+	/*
 	public function user()
 	{
 		$this->belongsTo('User');
 	}
+	*/
 
 }
