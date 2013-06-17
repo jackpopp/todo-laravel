@@ -155,3 +155,11 @@ form {
   background: #e4ffcf;
   border: 1px solid #a6cc75;
   transition: all 0.5s; }
+
+.animate-leave {
+  -webkit-transition: 1s linear all;
+  transition: 1s linear all;
+  opacity: 0; }
+
+.animate-enter {
+  opacity: 1; }

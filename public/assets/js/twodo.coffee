@@ -127,6 +127,7 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		return
 
 	$scope.login = ->
+		$scope.signin_error = ""
 		$scope.loading = true
 		data = (
 			email: $scope.email

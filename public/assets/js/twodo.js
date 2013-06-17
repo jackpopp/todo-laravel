@@ -144,6 +144,7 @@
     };
     $scope.login = function() {
       var data;
+      $scope.signin_error = "";
       $scope.loading = true;
       data = {
         email: $scope.email,

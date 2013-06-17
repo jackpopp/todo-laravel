@@ -35,7 +35,7 @@
         <script src="//ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
         <script>window.jQuery || document.write('<script src="assets/js/vendor/jquery-1.9.0.min.js"><\/script>')</script>
         <script src="assets/js/jquery-ui.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.0.5/angular.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/angularjs/1.1.5/angular.min.js"></script>
         <script src="http://code.angularjs.org/1.0.5/angular-resource.min.js"></script>
         <script src="assets/js/angular-dragdrop.min.js"></script>
         <script src="assets/js/twodo.js"></script>

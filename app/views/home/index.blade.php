@@ -14,7 +14,7 @@
                             <form ng-submit="login()">
                                 <input type="text" ng-model="email" placeholder="Email" required />
                                 <input type="password" ng-model="password" placeholder="Password" required />
-                                <div class="alert-box alert" ng-show="signin_error">
+                                <div class="alert-box alert" ng-show="signin_error" ng-animate=" 'animate' ">
                                     {{signin_error}}
                                 </div>
                                 <input type="submit" value="submit" class="small button" ng-hide="loading" />
