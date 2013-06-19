@@ -191,5 +191,21 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		list.deselect_todo_items()
 		return
 
+	$scope.get_lists = ->
+		console.log 'run'
+		$http.get('/todo-laravel/public/list').success($scope.list_success).error($scope.list_error)
+		return
+
+	$scope.list_success = (data) ->
+		console.log data
+		return
+
+	$scope.list_error = (data) ->
+		console.log data
+		return
+
+	$scope.get_lists()
+
+
 	return
 )

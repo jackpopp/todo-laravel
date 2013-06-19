@@ -210,6 +210,17 @@
       list.selected = true;
       list.deselect_todo_items();
     };
+    $scope.get_lists = function() {
+      console.log('run');
+      $http.get('/todo-laravel/public/list').success($scope.list_success).error($scope.list_error);
+    };
+    $scope.list_success = function(data) {
+      console.log(data);
+    };
+    $scope.list_error = function(data) {
+      console.log(data);
+    };
+    $scope.get_lists();
   });
 
 }).call(this);
