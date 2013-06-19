@@ -57,6 +57,7 @@
         <!-- Todo Lists holder -->
         <div class="large-4 columns todo-list-holder">
             <ul class="todo-list">
+                <img src="assets/img/loader.gif" ng-show="loading_list">
                 <li class="todo-block" ng-repeat="list in lists" ng-click="select_todo(list)" ng-class="{'selected' : list.selected==true, 'done' : list.all_completed()}">
                         <p>
                             {{list.title}}<br>

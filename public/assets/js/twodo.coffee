@@ -96,6 +96,7 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 	$scope.signup_success_message = ""
 
 	$scope.new_list_title = ""
+	$scope.loading_list = true
 
 	# New Todo Vars
 	$scope.new_todo_title = ""
@@ -177,7 +178,6 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		return
 
 	$scope.new_list_success = (data) ->
-		console.log data
 		if $scope.lists.push(new List(data.list.id,$scope.new_list_title)) then $scope.new_list_title = ""
 		return
 
@@ -206,6 +206,7 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		return
 
 	$scope.list_success = (data) ->
+		$scope.loading_list = false
 		for key, value of data.list
 			$scope.lists.push(new List(value.id,value.title))
 		return

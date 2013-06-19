@@ -119,6 +119,7 @@
     $scope.signup_error_message = "";
     $scope.signup_success_message = "";
     $scope.new_list_title = "";
+    $scope.loading_list = true;
     $scope.new_todo_title = "";
     $scope.new_todo_summary = "";
     $scope.show_add = null;
@@ -194,7 +195,6 @@
       }
     };
     $scope.new_list_success = function(data) {
-      console.log(data);
       if ($scope.lists.push(new List(data.list.id, $scope.new_list_title))) {
         $scope.new_list_title = "";
       }
@@ -226,6 +226,7 @@
     };
     $scope.list_success = function(data) {
       var key, value, _ref;
+      $scope.loading_list = false;
       _ref = data.list;
       for (key in _ref) {
         value = _ref[key];
