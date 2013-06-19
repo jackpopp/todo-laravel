@@ -166,9 +166,17 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 
 	$scope.add_new_list = ->
 		if $scope.new_list_title isnt null and $scope.new_list_title isnt "" and  $scope.new_list_title.length > 0
-			if $scope.lists.push(new List('new',$scope.new_list_title)) then $scope.new_list_title = ""
+			data = (
+				title: $scope.new_list_title
+			)
+			$http.post('/todo-laravel/public/list', data).success($scope.new_list_success)
 		else
 			alert 'Enter list title'
+		return
+
+	$scope.new_list_success = (data) ->
+		console.log data
+		if $scope.lists.push(new List(data.list.id,$scope.new_list_title)) then $scope.new_list_title = ""
 		return
 
 	# Add new todo Function
@@ -192,7 +200,6 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		return
 
 	$scope.get_lists = ->
-		console.log 'run'
 		$http.get('/todo-laravel/public/list').success($scope.list_success).error($scope.list_error)
 		return
 

@@ -180,12 +180,20 @@
       }
     };
     $scope.add_new_list = function() {
+      var data;
       if ($scope.new_list_title !== null && $scope.new_list_title !== "" && $scope.new_list_title.length > 0) {
-        if ($scope.lists.push(new List('new', $scope.new_list_title))) {
-          $scope.new_list_title = "";
-        }
+        data = {
+          title: $scope.new_list_title
+        };
+        $http.post('/todo-laravel/public/list', data).success($scope.new_list_success);
       } else {
         alert('Enter list title');
+      }
+    };
+    $scope.new_list_success = function(data) {
+      console.log(data);
+      if ($scope.lists.push(new List(data.list.id, $scope.new_list_title))) {
+        $scope.new_list_title = "";
       }
     };
     $scope.add_new_todo = function() {
@@ -211,7 +219,6 @@
       list.deselect_todo_items();
     };
     $scope.get_lists = function() {
-      console.log('run');
       $http.get('/todo-laravel/public/list').success($scope.list_success).error($scope.list_error);
     };
     $scope.list_success = function(data) {
