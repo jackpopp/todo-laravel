@@ -22,19 +22,39 @@ class UserController extends BaseController {
 
 	public function store()
 	{
-		$user = new User();
-		$user->name = Input::get('name');
-		$user->email = Input::get('email');
-		$user->password = Hash::make(Input::get('password'));
+		$rules = array(
+	    	'name' => 'required|min:3',
+	    	'email' => 'required|unique:users',
+	    	'password' => 'required|min:6'
+	    );
 
-		if($user->save())
+		$validator = Validator::make(
+		    Input::all(),
+		    $rules
+		);
+
+		if ($validator->passes())
 		{
-			return Response::json(array('success' => true, 'user' => $user->toArray()), 200);
+			$user = new User();
+			$user->name = Input::get('name');
+			$user->email = Input::get('email');
+			$user->password = Hash::make(Input::get('password'));
+
+			if($user->save())
+			{
+				return Response::json(array('success' => true, 'message' => 'You have signed up successfully!','user' => $user->toArray()), 200);
+			}
+			else
+			{
+				return Response::json(array('success' => false), 500);
+			}			
 		}
 		else
 		{
-			return Response::json(array('success' => false), 500);
+			$messages =  $validator->messages();
+			return Response::json(array('success' => false,'message' => $messages->all()), 500);
 		}
+
 	}
 
 	public function show()
