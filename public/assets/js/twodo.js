@@ -123,14 +123,17 @@
     $scope.new_todo_summary = "";
     $scope.show_add = null;
     $scope.lists = [];
-    $scope.lists.push(new List(1, 'To Do Example List'));
-    $scope.lists.push(new List(2, 'Another List with quite a long title!'));
-    $scope.lists.push(new List(3, 'A Third List with quite a long title!'));
-    $scope.lists[0].add_todo(1, 'Test One', 'This is a summary', 'This is a description Test One', false);
-    $scope.lists[0].add_todo(2, 'Test Two', 'This is a summary', 'This is a description Test Two', false);
-    $scope.lists[0].selected = true;
-    $scope.lists[1].add_todo(1, 'Test Three', 'This is a summary', 'This is a description Test Three', false);
-    $scope.lists[2].add_todo(1, 'Test Four', 'This is a summary', 'This is a description Test Four', false);
+    /*
+    	$scope.lists.push(new List(1,'To Do Example List'))
+    	$scope.lists.push(new List(2,'Another List with quite a long title!'))
+    	$scope.lists.push(new List(3,'A Third List with quite a long title!'))
+    	$scope.lists[0].add_todo(1,'Test One','This is a summary', 'This is a description Test One',false)
+    	$scope.lists[0].add_todo(2,'Test Two','This is a summary', 'This is a description Test Two',false)
+    	$scope.lists[0].selected = true
+    	$scope.lists[1].add_todo(1,'Test Three','This is a summary', 'This is a description Test Three',false)
+    	$scope.lists[2].add_todo(1,'Test Four','This is a summary', 'This is a description Test Four',false)
+    */
+
     $scope.selected_list = $scope.lists[0];
     $scope.signup = function() {
       var $signup_error, data;
@@ -222,7 +225,12 @@
       $http.get('/todo-laravel/public/list').success($scope.list_success).error($scope.list_error);
     };
     $scope.list_success = function(data) {
-      console.log(data);
+      var key, value, _ref;
+      _ref = data.list;
+      for (key in _ref) {
+        value = _ref[key];
+        $scope.lists.push(new List(value.id, value.title));
+      }
     };
     $scope.list_error = function(data) {
       console.log(data);

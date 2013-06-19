@@ -106,6 +106,7 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 
 
 	# Demo
+	###
 	$scope.lists.push(new List(1,'To Do Example List'))
 	$scope.lists.push(new List(2,'Another List with quite a long title!'))
 	$scope.lists.push(new List(3,'A Third List with quite a long title!'))
@@ -114,6 +115,7 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 	$scope.lists[0].selected = true
 	$scope.lists[1].add_todo(1,'Test Three','This is a summary', 'This is a description Test Three',false)
 	$scope.lists[2].add_todo(1,'Test Four','This is a summary', 'This is a description Test Four',false)
+	###
 
 	$scope.selected_list = $scope.lists[0]
 
@@ -204,7 +206,8 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		return
 
 	$scope.list_success = (data) ->
-		console.log data
+		for key, value of data.list
+			$scope.lists.push(new List(value.id,value.title))
 		return
 
 	$scope.list_error = (data) ->
