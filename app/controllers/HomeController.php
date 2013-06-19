@@ -45,13 +45,14 @@ class HomeController extends BaseController {
 	{
 		$user = new User();
 		$newUser = $user->createUser(Input::get('name'),Input::get('email'),Input::get('password'));
+
 		if($newUser)
 		{
-			return Response::json(array('success' => true, 'user' => $newUser),200);
+			return Response::json(array('success' => true, 'user' => $newUser), 200);
 		}
 		else
 		{
-			return Response::json(array('success' => false),500);
+			return Response::json(array('success' => false), 500);
 		}
 	}
 
