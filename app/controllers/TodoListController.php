@@ -35,6 +35,24 @@ class TodoListController extends BaseController {
 			
 	}
 
+	public function store()
+	{
+		$title = Input::get('title');
+		$list = new TodoList();
+		$list->title = $title;
+		$list->user_id = Auth::user()->id;
+		$list->shared = 0;
+		if ($list->save())
+		{
+			return Response::json(array('success' => true, 'list' => $list), 200);
+		}
+		else
+		{
+			return Response::json(array('success' => false), 500);
+		}
+
+	}
+
 	public function edit()
 	{
 
