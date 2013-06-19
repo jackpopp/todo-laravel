@@ -11,7 +11,7 @@ class TodoListController extends BaseController {
 	public function index()
 	{
 		$list = Auth::user()->todoLists()->get();
-		Response::json(array('success' => true, 'list' => $list ), 200);
+		return Response::json(array('success' => true, 'list' => $list ), 200);
 	}
 
 	public function show($id)
