@@ -18,10 +18,10 @@ Route::filter('auth.basic', function()
 
 Route::group( array('before' => 'auth.basic'), function()
 {
-	Route::resource('user', 'UserController');
 	Route::resource('list', 'TodoListController');
 });
 
+Route::resource('user', 'UserController');
 
 Route::post('auth', array('uses' => 'UserController@auth'));
 Route::get('logout', array('uses' => 'UserController@logout'));
