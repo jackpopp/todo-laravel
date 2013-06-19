@@ -80,17 +80,21 @@ App = angular.module('todo-app', ['ngDragDrop'])
 App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 
 	$scope.loading = false
+	$scope.signup_loading = false
 
 	# Sign In Vars
 	$scope.email = "jack.popp@gmail.com"
 	$scope.password = "1234"
 	$scope.signin_error = ""
 
+
 	# Sign Up Vars
 	$scope.signup_name = "Jack"
 	$scope.signup_password = "1234"
 	$scope.signup_email = "jack.popp@gmail.com"
-	$scope.masthead_closed = false
+	$scope.signup_error_message = ""
+	$scope.signup_success_message = ""
+
 	$scope.new_list_title = ""
 
 	# New Todo Vars
@@ -114,29 +118,39 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 	$scope.selected_list = $scope.lists[0]
 
 	$scope.signup = ->
+		$signup_error = ""
+		$scope.signup_loading = true
 		data = (
 			name: $scope.signup_name
 			email: $scope.signup_email
 			password: $scope.signup_password
 		)
-		$http.post('/todo-laravel/public/user', data).success($scope.signup_success)
+		$http.post('/todo-laravel/public/user', data).success($scope.signup_success).error($scope.signup_error)
 		return
 
 	$scope.signup_success = (data) ->
-		console.log data
+		$scope.signup_loading = false
+		if data.success
+			$scope.signup_success = data.message
 		return
 
-	$scope.login = ->
+	$scope.signup_error = (data) ->
+		$scope.signup_loading = false
+		if !data.success
+			$scope.signup_error_message = data.message.join('<br>')
+		return
+
+	$scope.signin = ->
 		$scope.signin_error = ""
 		$scope.loading = true
 		data = (
 			email: $scope.email
 			password: $scope.password
 		)
-		$http.post('/todo-laravel/public/auth', data).success($scope.login_success).error($scope.login_error)
+		$http.post('/todo-laravel/public/auth', data).success($scope.signin_success).error($scope.signing_error)
 		return
 
-	$scope.login_success = (data) ->
+	$scope.signin_success = (data) ->
 		$scope.signin_error = ""
 		if data.success
 			location.reload()
@@ -144,7 +158,7 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 			$scope.loading = false
 		return
 
-	$scope.login_error = (data) ->
+	$scope.signing_error = (data) ->
 		$scope.loading = false
 		if !data.success
 			$scope.signin_error = data.message

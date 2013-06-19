@@ -109,13 +109,15 @@
 
   App.controller('ToDoCtrl', function($scope, $timeout, $http) {
     $scope.loading = false;
+    $scope.signup_loading = false;
     $scope.email = "jack.popp@gmail.com";
     $scope.password = "1234";
     $scope.signin_error = "";
     $scope.signup_name = "Jack";
     $scope.signup_password = "1234";
     $scope.signup_email = "jack.popp@gmail.com";
-    $scope.masthead_closed = false;
+    $scope.signup_error_message = "";
+    $scope.signup_success_message = "";
     $scope.new_list_title = "";
     $scope.new_todo_title = "";
     $scope.new_todo_summary = "";
@@ -131,18 +133,29 @@
     $scope.lists[2].add_todo(1, 'Test Four', 'This is a summary', 'This is a description Test Four', false);
     $scope.selected_list = $scope.lists[0];
     $scope.signup = function() {
-      var data;
+      var $signup_error, data;
+      $signup_error = "";
+      $scope.signup_loading = true;
       data = {
         name: $scope.signup_name,
         email: $scope.signup_email,
         password: $scope.signup_password
       };
-      $http.post('/todo-laravel/public/user', data).success($scope.signup_success);
+      $http.post('/todo-laravel/public/user', data).success($scope.signup_success).error($scope.signup_error);
     };
     $scope.signup_success = function(data) {
-      console.log(data);
+      $scope.signup_loading = false;
+      if (data.success) {
+        $scope.signup_success = data.message;
+      }
     };
-    $scope.login = function() {
+    $scope.signup_error = function(data) {
+      $scope.signup_loading = false;
+      if (!data.success) {
+        $scope.signup_error_message = data.message.join('<br>');
+      }
+    };
+    $scope.signin = function() {
       var data;
       $scope.signin_error = "";
       $scope.loading = true;
@@ -150,9 +163,9 @@
         email: $scope.email,
         password: $scope.password
       };
-      $http.post('/todo-laravel/public/auth', data).success($scope.login_success).error($scope.login_error);
+      $http.post('/todo-laravel/public/auth', data).success($scope.signin_success).error($scope.signing_error);
     };
-    $scope.login_success = function(data) {
+    $scope.signin_success = function(data) {
       $scope.signin_error = "";
       if (data.success) {
         location.reload();
@@ -160,7 +173,7 @@
         $scope.loading = false;
       }
     };
-    $scope.login_error = function(data) {
+    $scope.signing_error = function(data) {
       $scope.loading = false;
       if (!data.success) {
         $scope.signin_error = data.message;

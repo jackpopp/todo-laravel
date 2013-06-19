@@ -11,13 +11,13 @@
                             <h3>
                                 Sign In!
                             </h3>
-                            <form ng-submit="login()">
+                            <form ng-submit="signin()">
                                 <input type="text" ng-model="email" placeholder="Email" required />
                                 <input type="password" ng-model="password" placeholder="Password" required />
                                 <div class="alert-box alert" ng-show="signin_error" ng-animate=" 'animate' ">
                                     {{signin_error}}
                                 </div>
-                                <input type="submit" value="submit" class="small button" ng-hide="loading" />
+                                <input type="submit" value="Signin" class="small button" ng-hide="loading" />
                                 <img src="assets/img/loader.gif" ng-show="loading">
                             </form>
                         </div>
@@ -29,7 +29,10 @@
                                 <input type="text" ng-model="signup_name" placeholder="Name" required />
                                 <input type="email" ng-model="signup_email" placeholder="Email" required />
                                 <input type="password" ng-model="signup_password" placeholder="Password" required />
-                                <input type="submit" value="submit" class="small button" />
+                                <div class="alert-box alert" ng-show="signup_error_message" ng-animate=" 'animate' " ng-bind-html-unsafe="signup_error_message">
+                                </div>
+                                <input type="submit" value="Signup" class="small button" ng-hide="signup_loading" />
+                                <img src="assets/img/loader.gif" ng-show="signup_loading">
                             </form>
                         </div>
                     </div>
