@@ -180,7 +180,7 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 	$scope.add_new_todo = ->
 		if $scope.new_todo_title isnt null and $scope.new_todo_title isnt "" and  $scope.new_todo_title.length > 0
 			data = (
-				list_id: $scope.selected_list.id
+				todo_list_id: $scope.selected_list.id
 				title: $scope.new_todo_title
 				summary: $scope.new_todo_summary
 			)
@@ -219,7 +219,9 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 	$scope.list_success = (data) ->
 		$scope.loading_list = false
 		for key, value of data.list
-			$scope.lists.push(new List(value.id,value.title))
+			index = $scope.lists.push(new List(value.id,value.title))
+			for k, v of value.todos
+				$scope.lists[index-1].todos.push(new Todo(value.id, value.title, value.summary, value.completed))
 		return
 
 	$scope.list_error = (data) ->

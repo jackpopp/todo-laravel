@@ -41,12 +41,12 @@ class TodoController extends BaseController {
 		$todo = new Todo();
 		
 		$todo->user_id = Auth::user()->id;
-		$todo->list_id = Input::get('list_id');
+		$todo->todo_list_id = Input::get('todo_list_id');
 		$todo->title = Input::get('title');
 		$todo->summary = Input::get('summary');
 
 		// Check if the user is allowed to add to this todo list
-		if($this->checkAuthorised(Auth::user()->id,Input::get('list_id')))
+		if($this->checkAuthorised(Auth::user()->id,Input::get('todo_list_id')))
 		{
 			if ($todo->save())
 			{

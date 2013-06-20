@@ -202,7 +202,7 @@ App.controller('ToDoCtrl', function($scope, $timeout, $http) {
 
     if ($scope.new_todo_title !== null && $scope.new_todo_title !== "" && $scope.new_todo_title.length > 0) {
       data = {
-        list_id: $scope.selected_list.id,
+        todo_list_id: $scope.selected_list.id,
         title: $scope.new_todo_title,
         summary: $scope.new_todo_summary
       };
@@ -239,13 +239,18 @@ App.controller('ToDoCtrl', function($scope, $timeout, $http) {
     }
   };
   $scope.list_success = function(data) {
-    var key, value, _ref;
+    var index, k, key, v, value, _ref, _ref1;
 
     $scope.loading_list = false;
     _ref = data.list;
     for (key in _ref) {
       value = _ref[key];
-      $scope.lists.push(new List(value.id, value.title));
+      index = $scope.lists.push(new List(value.id, value.title));
+      _ref1 = value.todos;
+      for (k in _ref1) {
+        v = _ref1[k];
+        $scope.lists[index - 1].todos.push(new Todo(value.id, value.title, value.summary, value.completed));
+      }
     }
   };
   $scope.list_error = function(data) {
