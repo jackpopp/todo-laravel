@@ -23,6 +23,7 @@ Route::group( array('before' => 'auth.basic'), function()
 
 Route::resource('user', 'UserController');
 
-Route::post('auth', array('uses' => 'UserController@auth'));
+Route::post('auth', array('uses' => 'HomeController@auth'));
+Route::get('auth/check', array('uses' => 'HomeController@authCheck'));
 Route::get('logout', array('uses' => 'UserController@logout'));
 Route::get('/', array('uses' => 'HomeController@index'));
