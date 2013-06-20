@@ -16,11 +16,14 @@ class TodoList extends Eloquent {
 	 */
 	protected $hidden = array();
 
-	/*
 	public function user()
 	{
 		$this->belongsTo('User');
 	}
-	*/
+
+	public function todos()
+	{
+		$this->hasMany('Todo');
+	}
 
 }

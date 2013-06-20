@@ -16,5 +16,9 @@ class Todo extends Eloquent  {
 	 */
 	protected $hidden = array();
 
+	public function list()
+	{
+		$this->belongsTo('TodoList');
+	}
 
 }
