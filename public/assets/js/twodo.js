@@ -7,13 +7,6 @@ List = function(id, title) {
   this.todos = [];
   this.show_add = false;
   this.selected = false;
-  this.add_todo = function(id, title, summary, description, done) {
-    if (this.todos.push(new Todo(id, title, summary, description, done))) {
-      return true;
-    } else {
-      return false;
-    }
-  };
   this.show_add_view = function() {
     if (this.show_add === false) {
       this.show_add = true;
@@ -205,14 +198,24 @@ App.controller('ToDoCtrl', function($scope, $timeout, $http) {
     }
   };
   $scope.add_new_todo = function() {
+    var data;
+
     if ($scope.new_todo_title !== null && $scope.new_todo_title !== "" && $scope.new_todo_title.length > 0) {
-      if ($scope.selected_list.todos.push(new Todo(null, $scope.new_todo_title, $scope.new_todo_summary, null, false))) {
-        $scope.new_todo_title = "";
-        $scope.new_todo_summary = "";
-        $scope.show_add = false;
-      }
+      data = {
+        lid: $scope.selected_list.id,
+        title: $scope.new_todo_title,
+        summary: $scope.new_todo_summary
+      };
+      $http.post('/todo-laravel/public/todo', data).success($scope.push_to_todos_array);
     } else {
       alert('Please enter title');
+    }
+  };
+  $scope.push_to_todos_array = function(data) {
+    if (this.todos.push(new Todo(data.id, data.title, data.summary, data.completed))) {
+      $scope.new_todo_title = "";
+      $scope.new_todo_summary = "";
+      $scope.show_add = false;
     }
   };
   $scope.select_todo = function(list) {

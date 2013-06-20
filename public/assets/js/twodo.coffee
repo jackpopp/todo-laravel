@@ -7,12 +7,6 @@ List = (id,title) ->
 	@.show_add = false
 	@.selected = false
 
-	# Add todo Function
-	# Adds a todo object to the todo array.
-	@.add_todo = (id,title,summary,description,done) ->
-		if @.todos.push(new Todo(id,title,summary,description,done)) then return true else return false
-		return
-
 	@.show_add_view = ->
 		if @.show_add is false then @.show_add = true else @.show_add = false
 		return
@@ -185,12 +179,21 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 	# Adds a new ToDo that has been created in the view
 	$scope.add_new_todo = ->
 		if $scope.new_todo_title isnt null and $scope.new_todo_title isnt "" and  $scope.new_todo_title.length > 0
-			if $scope.selected_list.todos.push(new Todo(null,$scope.new_todo_title,$scope.new_todo_summary,null,false))
-				$scope.new_todo_title = ""
-				$scope.new_todo_summary = ""
-				$scope.show_add = false
+			data = (
+				lid: $scope.selected_list.id
+				title: $scope.new_todo_title
+				summary: $scope.new_todo_summary
+			)
+			$http.post('/todo-laravel/public/todo', data).success($scope.push_to_todos_array)
 		else
 			alert 'Please enter title'
+		return
+
+	$scope.push_to_todos_array = (data) ->
+		if @.todos.push(new Todo(data.id,data.title,data.summary,data.completed))
+			$scope.new_todo_title = ""
+			$scope.new_todo_summary = ""
+			$scope.show_add = false
 		return
 
 	$scope.select_todo = (list) ->
