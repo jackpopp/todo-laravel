@@ -50,7 +50,7 @@ class TodoController extends BaseController {
 		{
 			if ($todo->save())
 			{
-				return Response::json(array('success' => true, 'todo' => $todo), 200);
+				return Response::json(array('success' => true, 'todo' => $todo->toArray()), 200);
 			}
 			else
 			{
@@ -61,8 +61,6 @@ class TodoController extends BaseController {
 		{
 			return Response::json(array('success' => false, 'Not authoried to add to this list.'), 401);
 		}
-
-
 
 	}
 
@@ -81,19 +79,15 @@ class TodoController extends BaseController {
 
 	}
 
-	private function checkAuthorised($uid,$lid)
+	private function checkAuthorised($uid,$id)
 	{
-		$todo = Todo::find($lid);
-		if ($todo)
+		$list = TodoList::find($id);
+		if ($list)
 		{
-			if ($todo->user_id == $uid)
-			{
+			if ($list->user_id == $uid)
 				return true;
-			}
 			else
-			{
 				return false;
-			}
 		}
 		else
 		{
