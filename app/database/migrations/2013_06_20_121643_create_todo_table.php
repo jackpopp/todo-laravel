@@ -19,7 +19,7 @@ class CreateTodoTable extends Migration {
 			$table->integer('list_id');
 		    $table->string('title');
 		    $table->string('summary');
-		    $table->integer('completed');
+		    $table->integer('completed')->default(0);
 		    $table->timestamps();
 		});
 	}
