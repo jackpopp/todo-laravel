@@ -18,12 +18,12 @@ class TodoList extends Eloquent {
 
 	public function user()
 	{
-		$this->belongsTo('User');
+		return $this->belongsTo('User');
 	}
 
 	public function todos()
 	{
-		$this->hasMany('Todo');
+		return $this->hasMany('Todo');
 	}
 
 }

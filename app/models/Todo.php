@@ -18,7 +18,7 @@ class Todo extends Eloquent  {
 
 	public function todoList()
 	{
-		$this->belongsTo('TodoList');
+		return $this->belongsTo('TodoList');
 	}
 
 }
