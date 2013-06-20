@@ -19,6 +19,7 @@ Route::filter('auth.basic', function()
 Route::group( array('before' => 'auth.basic'), function()
 {
 	Route::resource('list', 'TodoListController');
+	Route::resource('todo', 'TodoController');
 });
 
 Route::resource('user', 'UserController');
