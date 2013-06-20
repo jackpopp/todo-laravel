@@ -39,17 +39,30 @@ class TodoController extends BaseController {
 	{
 		$title = Input::get('title');
 		$todo = new Todo();
-		$todo->title = $title;
+		
 		$todo->user_id = Auth::user()->id;
 		$todo->list_id = Input::get('list_id');
-		if ($todo->save())
+		$todo->title = Input::get('title');
+		$todo->summary = Input::get('summary');
+
+		// Check if the user is allowed to add to this todo list
+		if($this->checkAuthorised(Auth::user()->id,Input::get('list_id')))
 		{
-			return Response::json(array('success' => true, 'todo' => $todo), 200);
+			if ($todo->save())
+			{
+				return Response::json(array('success' => true, 'todo' => $todo), 200);
+			}
+			else
+			{
+				return Response::json(array('success' => false), 500);
+			}
 		}
 		else
 		{
-			return Response::json(array('success' => false), 500);
+			return Response::json(array('success' => false, 'Not authoried to add to this list.'), 401);
 		}
+
+
 
 	}
 
@@ -66,5 +79,25 @@ class TodoController extends BaseController {
 	public function destroy()
 	{
 
+	}
+
+	private function checkAuthorised($uid,$lid)
+	{
+		$todo = Todo::find($lid);
+		if ($todo)
+		{
+			if ($todo->user_id == $uid)
+			{
+				return true;
+			}
+			else
+			{
+				return false;
+			}
+		}
+		else
+		{
+			return false;
+		}		
 	}
 }
