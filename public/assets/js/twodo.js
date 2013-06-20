@@ -182,6 +182,7 @@ App.controller('ToDoCtrl', function($scope, $timeout, $http) {
     }
   };
   $scope.new_list_success = function(data) {
+    console.log(data);
     if ($scope.lists.push(new List(data.list.id, $scope.new_list_title))) {
       $scope.new_list_title = "";
     }

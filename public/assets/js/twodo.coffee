@@ -158,6 +158,7 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		return
 
 	$scope.new_list_success = (data) ->
+		console.log data
 		if $scope.lists.push(new List(data.list.id,$scope.new_list_title)) then $scope.new_list_title = ""
 		return
 

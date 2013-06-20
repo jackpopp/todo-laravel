@@ -47,7 +47,7 @@ class TodoListController extends BaseController {
 		$list->shared = 0;
 		if ($list->save())
 		{
-			return Response::json(array('success' => true, 'list' => $list), 200);
+			return Response::json(array('success' => true, 'list' => $list->toArray()), 200);
 		}
 		else
 		{
