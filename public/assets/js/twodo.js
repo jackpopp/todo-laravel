@@ -202,7 +202,7 @@ App.controller('ToDoCtrl', function($scope, $timeout, $http) {
 
     if ($scope.new_todo_title !== null && $scope.new_todo_title !== "" && $scope.new_todo_title.length > 0) {
       data = {
-        lid: $scope.selected_list.id,
+        list_id: $scope.selected_list.id,
         title: $scope.new_todo_title,
         summary: $scope.new_todo_summary
       };
@@ -212,7 +212,7 @@ App.controller('ToDoCtrl', function($scope, $timeout, $http) {
     }
   };
   $scope.push_to_todos_array = function(data) {
-    if (this.todos.push(new Todo(data.id, data.title, data.summary, data.completed))) {
+    if ($scope.selected_list.todos.push(new Todo(data.todo.id, data.todo.title, data.todo.summary, data.todo.completed))) {
       $scope.new_todo_title = "";
       $scope.new_todo_summary = "";
       $scope.show_add = false;
