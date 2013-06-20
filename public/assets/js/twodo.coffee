@@ -84,7 +84,7 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 
 	# Sign In Vars
 	$scope.email = "jack.popp@gmail.com"
-	$scope.password = "1234"
+	$scope.password = "123456"
 	$scope.signin_error = ""
 
 
@@ -201,10 +201,18 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		list.deselect_todo_items()
 		return
 
-	$scope.get_lists = ->
-		$http.get('/todo-laravel/public/list').success($scope.list_success).error($scope.list_error)
+	# Check if the user is signed in, if they are then load the lists
+	$scope.check_signin = ->
+		$http.get('/todo-laravel/public/auth/check').success($scope.get_lists)
 		return
 
+	# GET request to load Todo lists
+	$scope.get_lists = (data) ->
+		if data.success
+			$http.get('/todo-laravel/public/list').success($scope.list_success).error($scope.list_error)
+		return
+
+	# If get_lists is successful then populate list
 	$scope.list_success = (data) ->
 		$scope.loading_list = false
 		for key, value of data.list
@@ -215,7 +223,7 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		console.log data
 		return
 
-	$scope.get_lists()
+	$scope.check_signin()
 
 
 	return
