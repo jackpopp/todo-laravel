@@ -221,7 +221,7 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		for key, value of data.list
 			index = $scope.lists.push(new List(value.id,value.title))
 			for k, v of value.todos
-				$scope.lists[index-1].todos.push(new Todo(value.id, value.title, value.summary, value.completed))
+				$scope.lists[index-1].todos.push(new Todo(v.id, v.title, v.summary, v.completed))
 		return
 
 	$scope.list_error = (data) ->

@@ -249,7 +249,7 @@ App.controller('ToDoCtrl', function($scope, $timeout, $http) {
       _ref1 = value.todos;
       for (k in _ref1) {
         v = _ref1[k];
-        $scope.lists[index - 1].todos.push(new Todo(value.id, value.title, value.summary, value.completed));
+        $scope.lists[index - 1].todos.push(new Todo(v.id, v.title, v.summary, v.completed));
       }
     }
   };
