@@ -22,37 +22,30 @@ class HomeController extends BaseController {
 
 	public function auth()
 	{
-	    // get POST data
-	    $userdata = array(
-	        'username'      => Input::get('username'),
-	        'password'      => Input::get('password')
-	    );
+		$userdata = array(
+			'email' => Input::get('email'),
+			'password' => Input::get('password')
+		);
 
-	    if ( Auth::attempt($userdata) )
-	    {
-	        // we are now logged in, go to home
-	        return Redirect::to('/');
-	    }
-	    else
-	    {
-	        // auth failure! lets go back to the login
-	        return Redirect::to('auth')
-	            ->with('login_errors', true);
-	    }
+		if (Auth::attempt($userdata))
+		{
+			return Response::json(array('success' => true), 200);
+		}		
+		else
+		{
+			return Response::json(array('success' => false, 'message' => 'Email or password incorrect'), 500);
+		}	
 	}
 
-	public function put_user()
+	public function authCheck()
 	{
-		$user = new User();
-		$newUser = $user->createUser(Input::get('name'),Input::get('email'),Input::get('password'));
-
-		if($newUser)
+		if(Auth::check())
 		{
-			return Response::json(array('success' => true, 'user' => $newUser), 200);
+			return Response::json(array('success' => true), 200);
 		}
 		else
 		{
-			return Response::json(array('success' => false), 500);
+			return Response::json(array('success' => false),401);
 		}
 	}
 

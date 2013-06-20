@@ -77,23 +77,6 @@ class UserController extends BaseController {
 
 	}
 
-	public function auth()
-	{
-		$userdata = array(
-			'email' => Input::get('email'),
-			'password' => Input::get('password')
-		);
-
-		if (Auth::attempt($userdata))
-		{
-			return Response::json(array('success' => true), 200);
-		}		
-		else
-		{
-			return Response::json(array('success' => false, 'message' => 'Email or password incorrect'), 500);
-		}	
-	}
-
 	public function logout()
 	{
 		Session::flush();
