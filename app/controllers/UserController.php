@@ -42,7 +42,7 @@ class UserController extends BaseController {
 
 			if($user->save())
 			{
-				return Response::json(array('success' => true, 'message' => 'You have signed up successfully!','user' => $user->toArray()), 200);
+				return Response::json(array('success' => true, 'message' => 'You have signed up successfully!','user' => $user->toArray()), 201);
 			}
 			else
 			{
