@@ -14,6 +14,7 @@ class TodoListController extends BaseController {
 		{
 		    $query->where('user_id', '=', Auth::user()->id);
 		}))->get()->toArray();
+
 		return Response::json(array('success' => true, 'list' => $list ), 200);
 	}
 
@@ -47,7 +48,7 @@ class TodoListController extends BaseController {
 		$list->shared = 0;
 		if ($list->save())
 		{
-			return Response::json(array('success' => true, 'list' => $list->toArray()), 200);
+			return Response::json(array('success' => true, 'list' => $list->toArray()), 201);
 		}
 		else
 		{
