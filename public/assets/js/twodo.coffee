@@ -17,13 +17,13 @@ List = (id,title) ->
 	@.get_completed_todos = -> 
 		amount = 0
 		for t in @.todos
-			amount++ if t.done is true
+			amount++ if t.completed is true
 		return amount
 
 	@.get_incomplete_todos = ->
 		amount = 0
 		for t in @.todos
-			amount++ if t.done is false
+			amount++ if t.completed is false
 		return amount
 
 	@.select = -> 
@@ -50,27 +50,23 @@ List = (id,title) ->
 
 # Todo Class
 # Class for a single Todo Object
-Todo = (id,title,summary,description,done) ->
+Todo = (id,title,summary,completed) ->
 	@.id = id
 	@.title = title
 	@.summary = summary
-	@.description = description
-	@.done = done
+	#@.description = description
+	@.completed = completed
 	@.selected = false
 
 	@.select = -> 
 		if @.selected is true then @.selected = false else @.selected = true
 		return
 		
-	@.todo_complete = -> 
-		if @.done is true then @.done = false else @.done = true
-		@.selected is false
-		return
 	return
 
 App = angular.module('todo-app', ['ngDragDrop'])
 
-App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
+App.controller('ToDoCtrl', ($scope, $timeout, $http) ->
 
 	$scope.loading = false
 	$scope.signup_loading = false
@@ -212,6 +208,21 @@ App.controller('ToDoCtrl', ($scope, $timeout,$http) ->
 		return
 
 	$scope.list_error = (data) ->
+		console.log data
+		return
+
+	$scope.todo_complete_request = (todo) -> 
+		$http.put('/todo-laravel/public/list/'+todo.id, todo).success($scope.todo_complete_success).error($scope.todo_complete_error)
+		return
+
+	$scope.todo_complete_success = (data,status,headers,config) ->
+		todo = config.data
+		console.log todo
+		if todo.completed is true then todo.completed = false else todo.completed = true
+		todo.selected is false
+		return
+
+	$scope.todo_complete_error = (data) ->
 		console.log data
 		return
 
