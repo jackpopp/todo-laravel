@@ -50,7 +50,7 @@ class TodoController extends BaseController {
 		{
 			if ($todo->save())
 			{
-				return Response::json(array('success' => true, 'todo' => $todo->toArray()), 200);
+				return Response::json(array('success' => true, 'todo' => $todo->toArray()), 201);
 			}
 			else
 			{
@@ -61,17 +61,30 @@ class TodoController extends BaseController {
 		{
 			return Response::json(array('success' => false, 'Not authoried to add to this list.'), 401);
 		}
-
 	}
 
-	public function edit()
+	public function update($id)
 	{
-
-	}
-
-	public function update()
-	{
-
+		$todo = Todo::find($id);
+		if($todo)
+		{
+			if(Auth::user()->id == $todo->user_id)
+			{
+				$input = Input::all();
+				if ($todo->update($input['todo']))
+				{
+					return Response::json(array('succes' => true, 'todo' => $todo->toArray(), 'message' => 'Todo updated'), 200);
+				}
+			}
+			else
+			{
+				return Response::json(array('success' => false, 'message' => 'Not authorised to update todo.'), 401);
+			}
+		}
+		else
+		{
+			return Response::json(array('success' => false, 'message' => 'Not found.'), 404);
+		}	
 	}
 
 	public function destroy()
