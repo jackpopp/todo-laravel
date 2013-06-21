@@ -9,6 +9,8 @@ class Todo extends Eloquent  {
 	 */
 	protected $table = 'todos';
 
+	protected $fillable = array('title', 'summary', 'completed');
+
 	/**
 	 * The attributes excluded from the model's JSON form.
 	 *
