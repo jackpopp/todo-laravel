@@ -84,7 +84,7 @@
             <!-- End new Todo input -->
 
            <ul>
-                <li class="todo-item clearfix" ng-repeat="todo in selected_list.todos" ng-model="selected_list.todos" data-drop="true" jqyoui-droppable="{index: {{$index}}}" ng-click="selected_list.select_todo_item(todo)" ng-class="{'selected':todo.selected == true, 'done':todo.completed == true}" >
+                <li class="todo-item clearfix" ng-repeat="todo in selected_list.todos" ng-model="selected_list.todos" data-drop="true" jqyoui-droppable="{index: {{$index}}}" ng-click="selected_list.select_todo_item(todo)" ng-class="{'selected':todo.selected == true, 'done':todo.completed == 1}" >
                     <span ng-model="selected_list.todos" data-drag="true" jqyoui-draggable="{index: {{$index}},animate:false}" data-jqyoui-options="{revert: 'invalid'}">
                         <span class="left">{{todo.title}}</span>
                         <span class="right" ng-click="todo_complete_request(todo)">

@@ -66,14 +66,19 @@ class TodoController extends BaseController {
 	public function update($id)
 	{
 		$todo = Todo::find($id);
+		
 		if($todo)
 		{
 			if(Auth::user()->id == $todo->user_id)
 			{
 				$input = Input::all();
-				if ($todo->update($input['todo']))
+				if ($todo->update($input))
 				{
-					return Response::json(array('succes' => true, 'todo' => $todo->toArray(), 'message' => 'Todo updated'), 200);
+					return Response::json(array('succes' => true, 'todo' => $todo->toArray(), 'message' => 'Todo updated.'), 200);
+				}
+				else
+				{
+					return Response::json(array('succes' => false, 'todo' => $todo->toArray(), 'message' => 'Problem updating.'), 500);
 				}
 			}
 			else
@@ -85,6 +90,7 @@ class TodoController extends BaseController {
 		{
 			return Response::json(array('success' => false, 'message' => 'Not found.'), 404);
 		}	
+		
 	}
 
 	public function destroy()

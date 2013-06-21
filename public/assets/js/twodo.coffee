@@ -17,13 +17,13 @@ List = (id,title) ->
 	@.get_completed_todos = -> 
 		amount = 0
 		for t in @.todos
-			amount++ if t.completed is true
+			amount++ if t.completed is 1
 		return amount
 
 	@.get_incomplete_todos = ->
 		amount = 0
 		for t in @.todos
-			amount++ if t.completed is false
+			amount++ if t.completed is 0
 		return amount
 
 	@.select = -> 
@@ -55,7 +55,7 @@ Todo = (id,title,summary,completed) ->
 	@.title = title
 	@.summary = summary
 	#@.description = description
-	@.completed = completed
+	@.completed = parseInt(completed)
 	@.selected = false
 
 	@.select = -> 
@@ -154,7 +154,6 @@ App.controller('ToDoCtrl', ($scope, $timeout, $http) ->
 		return
 
 	$scope.new_list_success = (data) ->
-		console.log data
 		if $scope.lists.push(new List(data.list.id,$scope.new_list_title)) then $scope.new_list_title = ""
 		return
 
@@ -207,18 +206,19 @@ App.controller('ToDoCtrl', ($scope, $timeout, $http) ->
 				$scope.lists[index-1].todos.push(new Todo(v.id, v.title, v.summary, v.completed))
 		return
 
+	# If we have an error while requesting our lists then this runs
 	$scope.list_error = (data) ->
 		console.log data
 		return
 
 	$scope.todo_complete_request = (todo) -> 
-		$http.put('/todo-laravel/public/list/'+todo.id, todo).success($scope.todo_complete_success).error($scope.todo_complete_error)
+		if todo.completed is 1 then todo.completed = 0 else todo.completed = 1
+		$http.put('/todo-laravel/public/todo/'+todo.id, todo).success($scope.todo_complete_success).error($scope.todo_complete_error)
 		return
 
 	$scope.todo_complete_success = (data,status,headers,config) ->
 		todo = config.data
 		console.log todo
-		if todo.completed is true then todo.completed = false else todo.completed = true
 		todo.selected is false
 		return
 
