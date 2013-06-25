@@ -51,7 +51,7 @@ class User extends Eloquent implements UserInterface, RemindableInterface {
 
 	public function todoLists()
 	{
-		return $this->hasMany('TodoList');
+		return $this->belongsToMany('TodoList');
 	}
 
 	public function todos()
