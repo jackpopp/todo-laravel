@@ -44,6 +44,7 @@ class TodoListController extends BaseController {
 		$list->shared = 0;
 		if ($list->save())
 		{
+			$list->user()->attach(Auth::user()->id);
 			return Response::json(array('success' => true, 'list' => $list->toArray()), 201);
 		}
 		else
