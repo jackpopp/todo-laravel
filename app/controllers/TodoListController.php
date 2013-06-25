@@ -10,12 +10,8 @@ class TodoListController extends BaseController {
 
 	public function index()
 	{
-		$list = TodoList::with(array('todos' => function($query)
-		{
-		    $query->where('user_id', '=', Auth::user()->id);
-		}))->get()->toArray();
-
-		return Response::json(array('success' => true, 'list' => $list ), 200);
+		$result = User::with('todoLists', 'todoLists.todos')->where('id', '=', Auth::user()->id)->first()->toArray();
+		return Response::json(array('success' => true, 'list' => $result['todo_lists'] ), 200);
 	}
 
 	public function show($id)
