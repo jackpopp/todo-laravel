@@ -46,7 +46,7 @@ class TodoController extends BaseController {
 		$todo->summary = Input::get('summary');
 
 		// Check if the user is allowed to add to this todo list
-		if($this->checkAuthorised(Auth::user()->id,Input::get('todo_list_id')))
+		if($this->checkAuthorised(Input::get('todo_list_id')))
 		{
 			if ($todo->save())
 			{
@@ -98,15 +98,19 @@ class TodoController extends BaseController {
 
 	}
 
-	private function checkAuthorised($uid,$id)
+	private function checkAuthorised($id)
 	{
-		$list = TodoList::find($id);
+		$list = Auth::user()->TodoLists->contains($id);
+		//$list = TodoList::find($id);
 		if ($list)
 		{
+			/*
 			if ($list->user_id == $uid)
 				return true;
 			else
 				return false;
+				*/
+			return true;
 		}
 		else
 		{
