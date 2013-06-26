@@ -139,12 +139,9 @@ form {
   background: #d2d2d2; }
 
 .new-todo {
-  margin: 0px 0px 20px 0px; }
-  .new-todo .new-todo-input {
-    width: 48%;
-    float: left; }
-  .new-todo .todo-title {
-    margin: 0px 25px 0px 0px; }
+  margin: 12px 0px 0px 0px; }
+  .new-todo input {
+    margin: 0px 0px 12px 0px; }
 
 .selected {
   background: #fdfdfd;
