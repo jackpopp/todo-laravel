@@ -77,7 +77,7 @@
                     <input type="text" class="new-todo-input todo-title" ng-model="new_todo_title" placeholder="New todo title">
                 </form>
                 <form ng-submit="add_new_todo()">
-                    <input type="text" class="new-todo-input" ng-model="new_todo_summary" placeholder="New todo summary">
+                    <textarea type="text" class="new-todo-input" ng-model="new_todo_summary" placeholder="New todo summary" ng-focus-blur="toggle_expand_texarea()" ng-class="{'expand-textarea' : expand_textarea==true}"></textarea>
                 </form>
                 
             </div>

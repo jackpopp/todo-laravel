@@ -66,6 +66,23 @@ Todo = (id,title,summary,completed) ->
 
 App = angular.module('todo-app', ['ngDragDrop'])
 
+App.directive('ngFocusBlur', ->
+	(scope, element, attrs) ->
+		functions = attrs.ngFocusBlur.split(',')
+		element.bind('focus', ->
+			scope.$apply(
+				->
+					scope.$eval(functions[0])	
+			)		
+		)
+		element.bind('blur', ->
+			scope.$apply(
+				->
+					if functions.length is 1 then scope.$eval(functions[0]) else scope.$eval(functions[1])	
+			)		
+		)	
+)
+
 App.controller('ToDoCtrl', ($scope, $timeout, $http) ->
 
 	$scope.loading = false
@@ -224,6 +241,10 @@ App.controller('ToDoCtrl', ($scope, $timeout, $http) ->
 
 	$scope.todo_complete_error = (data) ->
 		console.log data
+		return
+
+	$scope.toggle_expand_texarea = ->
+		if $scope.expand_textarea is true then $scope.expand_textarea = false else $scope.expand_textarea = true
 		return
 
 	$scope.check_signin()

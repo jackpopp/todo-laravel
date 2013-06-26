@@ -142,6 +142,11 @@ form {
   margin: 12px 0px 0px 0px; }
   .new-todo input {
     margin: 0px 0px 12px 0px; }
+  .new-todo textarea {
+    -webkit-transition: 1s ease-in all;
+    transition: 1s ease-in all; }
+  .new-todo .expand-textarea {
+    height: 130px; }
 
 .selected {
   background: #fdfdfd;
