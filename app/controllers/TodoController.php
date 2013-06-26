@@ -21,7 +21,7 @@ class TodoController extends BaseController {
 		{
 			if(Auth::user()->id == $todo->user_id)
 			{
-				return Response::json(array('success'=>true,'todo'=>$todo), 200);
+				return Response::json(array('success'=>true,'todo'=>$todo->toArray()), 200);
 			}
 			else
 			{
